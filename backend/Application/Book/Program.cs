@@ -1,3 +1,8 @@
+using Book.Infrastructure.Dependency;
+using Book.Settings;
+using Bookstore.Api.Enum.Book;
+using Bookstore.Domain.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var booksSettings = new BookStoreDatabaseSettings();
+builder.Configuration.GetSection(BookDbSettings.BOOK_STORE_SETTINGS).Bind(booksSettings);
+builder.Services.AddInfrastructure(booksSettings.ConnectionString, booksSettings.DatabaseName);
 
 var app = builder.Build();
 
@@ -23,3 +32,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

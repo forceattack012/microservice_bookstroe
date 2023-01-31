@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bookstore.Api.Enum\Bookstore.Api.Enum.csproj" />
+    <ProjectReference Include="..\..\Domain\Bookstore.Domain\Bookstore.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
