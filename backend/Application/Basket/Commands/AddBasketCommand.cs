@@ -1,4 +1,5 @@
 ﻿using Basket.Models;
+using Bookstore.Api.Enum.Basket;
 using Bookstore.Domain.Entities;
 using Bookstore.Domain.Repositories;
 using MediatR;
@@ -33,7 +34,7 @@ namespace Basket.Commands
                     return new Response<Bookstore.Domain.Entities.Basket>()
                     {
                         StatusCode = (int)HttpStatusCode.BadRequest,
-                        Message = "Username is required",
+                        Message = BasketErrorMessage.USER_REQUIRED,
                         IsSuccess = false
                     };
                 }
@@ -51,8 +52,8 @@ namespace Basket.Commands
                 var oldBasket = await _basketRepository.GetBasketByUserName(request.UserName, cancellationToken);
                 var basket = new Bookstore.Domain.Entities.Basket
                 {
-                    Books = request.Books,
                     UsertName = request.UserName,
+                    Books = request.Books,
                 };
                 
                 if(oldBasket.Books != null)
@@ -61,6 +62,11 @@ namespace Basket.Commands
                     {
                         basket.Books.Add(book);
                     }
+                }
+
+                for(int i=0; i<basket.Books.Count; i++)
+                {
+                    basket.Books[i].Id = i + 1;
                 }
 
                 await _basketRepository.AddBasket(basket, cancellationToken);

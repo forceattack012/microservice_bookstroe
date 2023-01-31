@@ -2,7 +2,7 @@
 
 namespace Basket.Models
 {
-    public class BookRequest
+    public class BasketRequest
     {
         public string UserName { get; set; }
         public List<Book> Books { get; set; }

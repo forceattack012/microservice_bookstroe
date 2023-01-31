@@ -1,20 +1,19 @@
-﻿using Basket.Infrastructure.Repositories;
+﻿using Basket.Infrastructure.Context;
+using Basket.Infrastructure.Repositories;
 using Bookstore.Domain.Repositories;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StackExchange.Redis;
 
 namespace Basket.Infrastructure.Dependency
 {
     public static class RegisterService
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection serviceCollection, string redisConnection)
         {
-            serviceCollection.AddMemoryCache();
+            var configuration = ConfigurationOptions.Parse(redisConnection, true);
+            var multiplexer = ConnectionMultiplexer.Connect(configuration);
+            serviceCollection.AddSingleton<IConnectionMultiplexer>(multiplexer);
+            serviceCollection.AddSingleton<IRedisContext, RedisContext>();
             serviceCollection.AddScoped<IBasketRepository, BasketRepository>();
 
             return serviceCollection;

@@ -11,8 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-builder.Services.AddInfrastructure();
+string connection = builder.Configuration.GetConnectionString("Redis");
+builder.Services.AddInfrastructure(connection);
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();

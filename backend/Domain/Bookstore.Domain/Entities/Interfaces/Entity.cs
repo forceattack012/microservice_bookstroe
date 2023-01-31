@@ -1,8 +1,10 @@
-﻿namespace Bookstore.Domain.Entities.Interfaces
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bookstore.Domain.Entities.Interfaces
 {
     public abstract class Entity<T> : IBaseEntity<T>
     {
-        public virtual T Id { get; protected set; }
+        public virtual T Id { get; set; }
         T IBaseEntity<T>.Id
         {
             get { return Id; }

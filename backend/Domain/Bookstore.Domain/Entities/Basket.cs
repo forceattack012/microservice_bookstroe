@@ -7,6 +7,8 @@ namespace Bookstore.Domain.Entities
         public string UsertName { get; set; }
         public List<Book> Books { get; set; }
 
+        public int Count => Books?.Count == null ? 0 : Books.Count;
+
         private decimal total { 
             get
             {

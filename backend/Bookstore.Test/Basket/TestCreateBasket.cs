@@ -1,4 +1,5 @@
 using Basket.Commands;
+using Bookstore.Api.Enum.Basket;
 using Bookstore.Domain.Entities;
 using Bookstore.Domain.Repositories;
 using Moq;
@@ -19,7 +20,7 @@ namespace Bookstore.Test.Basket
             var handler = new AddBasketCommandHandler(repo.Object);
             var result = await handler.Handle(command, CancellationToken.None);
 
-            var message = "Username is required";
+            var message = BasketErrorMessage.USER_REQUIRED;
 
             Assert.Equal((int)HttpStatusCode.BadRequest, result.StatusCode);
             Assert.Equal(message, result.Message);
@@ -36,7 +37,7 @@ namespace Bookstore.Test.Basket
             var handler = new AddBasketCommandHandler(repo.Object);
             var result = await handler.Handle(command, CancellationToken.None);
 
-            var message = "Books is required";
+            var message = BasketErrorMessage.BOOK_IS_REQUIRED;
 
             Assert.Equal((int)HttpStatusCode.BadRequest, result.StatusCode);
             Assert.Equal(message, result.Message);
@@ -93,6 +94,7 @@ namespace Bookstore.Test.Basket
             Assert.Empty(result.Message);
             Assert.Equal(total, result.Data.Total);
             Assert.Equal(wantCount, result.Data.Books.Count);
+            Assert.Equal(3, result.Data.Books[2].Id);
         }
     }
 }

@@ -1,27 +1,35 @@
-﻿using Bookstore.Domain.Repositories;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Basket.Infrastructure.Context;
+using Bookstore.Domain.Repositories;
+using Newtonsoft.Json;
+using Bookstore.Api.Helper;
 
 namespace Basket.Infrastructure.Repositories
 {
     public class BasketRepository : IBasketRepository
     {
-        private readonly IMemoryCache _memoryCache;
+        private readonly IRedisContext _redisContext;
 
-        public BasketRepository(IMemoryCache memoryCache)
+        public BasketRepository(IRedisContext redisContext)
         {
-            _memoryCache = memoryCache;
+            _redisContext = redisContext;
         }
 
-        public Task AddBasket(Bookstore.Domain.Entities.Basket basket, CancellationToken cancellationToken = default)
+        public async Task AddBasket(Bookstore.Domain.Entities.Basket basket, CancellationToken cancellationToken = default)
         {
-            _memoryCache.Set(basket.UsertName, basket);
-            return Task.CompletedTask;
+            await _redisContext.Database.StringSetAsync(basket.UsertName, JsonConvert.SerializeObject(basket));
+            return;
         }
 
         public async Task<Bookstore.Domain.Entities.Basket> GetBasketByUserName(string userName, CancellationToken cancellationToken = default)
         {
-            var basket = _memoryCache.Get<Bookstore.Domain.Entities.Basket>(userName) ?? new Bookstore.Domain.Entities.Basket();
-            return await Task.FromResult<Bookstore.Domain.Entities.Basket>(basket);
+            var result = await _redisContext.Database.StringGetAsync(userName);
+            if (result.IsCheckNullOrEmpty())
+            {
+                return new Bookstore.Domain.Entities.Basket();
+            }
+
+            var basket = JsonConvert.DeserializeObject<Bookstore.Domain.Entities.Basket>(result);
+            return basket;
         }
     }
 }
