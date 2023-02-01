@@ -1,5 +1,4 @@
 ﻿using Bookstore.Domain.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Controllers

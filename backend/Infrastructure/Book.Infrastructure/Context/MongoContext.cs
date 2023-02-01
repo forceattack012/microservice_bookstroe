@@ -1,4 +1,5 @@
-﻿using Bookstore.Api.Enum.Book;
+﻿using Book.Infrastructure.Data;
+using Bookstore.Api.Enum.Book;
 using MongoDB.Driver;
 
 namespace Book.Infrastructure.Context
@@ -10,18 +11,7 @@ namespace Book.Infrastructure.Context
             var mongoClient = new MongoClient(connection);
             var mongoDatabase = mongoClient.GetDatabase(databaseName);
             var collection = mongoDatabase.GetCollection<Bookstore.Domain.Entities.Book>(BookDbSettings.COLLECTION_NAME);
-
-            var count = collection.Count(_ => true);
-            if (count == 0)
-            {
-                collection.InsertMany(new Bookstore.Domain.Entities.Book[]
-                {
-                    new Bookstore.Domain.Entities.Book()
-                    {
-                        ISBN = "100"
-                    }
-                });
-            }
+            BookContextSeed.SeedData(collection);
             Collection = collection;
         }
 

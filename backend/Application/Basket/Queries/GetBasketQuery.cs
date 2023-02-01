@@ -1,6 +1,6 @@
-﻿using Basket.Models;
-using Bookstore.Api.Enum.Basket;
+﻿using Bookstore.Api.Enum.Basket;
 using Bookstore.Domain.Repositories;
+using Bookstore.Domain.Responses;
 using MediatR;
 using System.Net;
 

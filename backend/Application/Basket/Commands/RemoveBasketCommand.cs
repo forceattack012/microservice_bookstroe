@@ -1,6 +1,7 @@
 ﻿using Basket.Infrastructure.Context;
 using Basket.Models;
 using Bookstore.Domain.Repositories;
+using Bookstore.Domain.Responses;
 using MediatR;
 
 namespace Basket.Commands
@@ -28,7 +29,7 @@ namespace Basket.Commands
 
         public async Task<Response<Bookstore.Domain.Entities.Basket>> Handle(RemoveBasketCommand request, CancellationToken cancellationToken)
         {
-            if(request.Id == null || request.UserName == null) 
+            if(string.IsNullOrEmpty(request.Id) || string.IsNullOrEmpty(request.UserName)) 
             {
                 return new Response<Bookstore.Domain.Entities.Basket>
                 {

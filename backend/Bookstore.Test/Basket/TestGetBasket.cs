@@ -77,14 +77,16 @@ namespace Bookstore.Test.Basket
                         ISBN = "123",
                         Id= 1,
                         Name = "xxxaa",
-                        Price = 1000
+                        Price = 1000,
+                        Qty = 10
                     },
                     new Domain.Entities.Book()
                     {
                         ISBN = "saaz1",
                         Id= 2,
                         Name = "xxxaazzzs",
-                        Price = 1000
+                        Price = 1000,
+                        Qty = 10
                     }
                 },
             }); 
@@ -95,8 +97,8 @@ namespace Bookstore.Test.Basket
             Assert.True(response.IsSuccess);
             Assert.Equal((int)HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(response.Data);
-            Assert.Equal(2, response.Data.Count);
-            Assert.Equal(2000, response.Data.Total);
+            Assert.Equal(20, response.Data.Count);
+            Assert.Equal(20000, response.Data.Total);
         }
     }
 }

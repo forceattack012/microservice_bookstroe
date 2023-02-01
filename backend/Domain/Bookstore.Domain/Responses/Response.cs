@@ -1,4 +1,4 @@
-﻿namespace Basket.Models
+﻿namespace Bookstore.Domain.Responses
 {
     public class Response<T> where T : class
     {
