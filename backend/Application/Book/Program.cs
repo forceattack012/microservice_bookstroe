@@ -1,7 +1,8 @@
 using Book.Infrastructure.Dependency;
 using Book.Settings;
 using Bookstore.Api.Enum.Book;
-using Bookstore.Domain.Repositories;
+using MediatR;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 var booksSettings = new BookStoreDatabaseSettings();
 builder.Configuration.GetSection(BookDbSettings.BOOK_STORE_SETTINGS).Bind(booksSettings);
 builder.Services.AddInfrastructure(booksSettings.ConnectionString, booksSettings.DatabaseName);
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
