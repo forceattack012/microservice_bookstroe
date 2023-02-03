@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Basket\Basket.csproj" />
+    <ProjectReference Include="..\Application\Basket\Basket.API.csproj" />
     <ProjectReference Include="..\Domain\Bookstore.Domain\Bookstore.Domain.csproj" />
   </ItemGroup>
 

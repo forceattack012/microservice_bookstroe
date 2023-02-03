@@ -1,4 +1,5 @@
-﻿using Book.Models;
+﻿using Book.API.Mapping;
+using Book.Models;
 using Bookstore.Domain.Repositories;
 using Bookstore.Domain.Responses;
 using MediatR;
@@ -8,7 +9,7 @@ namespace Book.Commands
 {
     public class CreateBookCommand : IRequest<Response<string>>
     {
-        public Bookstore.Domain.Entities.Book Book;
+        public BookRequest BookRequest { get; set; }
     }
 
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Response<string>>
@@ -22,7 +23,10 @@ namespace Book.Commands
 
         public async Task<Response<string>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            await bookRepository.AddBook(request.Book);
+            var bookLastestId = this.bookRepository.GetLastBookId();
+            bookLastestId = bookLastestId + 1;
+            await bookRepository.AddBook(MapService.ConvertToBook(request.BookRequest, bookLastestId));
+
             return new Response<string>()
             {
                 StatusCode = (int)HttpStatusCode.Created,

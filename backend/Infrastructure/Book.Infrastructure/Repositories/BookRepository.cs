@@ -18,12 +18,10 @@ namespace Book.Infrastructure.Repositories
             await _collection.InsertOneAsync(book);
         }
 
-        public async Task<bool> DeleteBook(int id, CancellationToken cancellationToken)
+        public async Task DeleteBook(int id, CancellationToken cancellationToken)
         {
             var filter = Builders<Bookstore.Domain.Entities.Book>.Filter.Eq(s => s.Id, id);
-            var deleteResult = await _collection.DeleteOneAsync(filter, cancellationToken);
-
-            return deleteResult.IsAcknowledged;
+            await _collection.DeleteOneAsync(filter, cancellationToken);
         }
 
         public IQueryable<Bookstore.Domain.Entities.Book> GetBooks()
