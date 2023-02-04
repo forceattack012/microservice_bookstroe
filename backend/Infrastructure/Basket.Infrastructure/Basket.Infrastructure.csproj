@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Bookstore.Api.Helper\Bookstore.Api.Helper.csproj" />
+    <ProjectReference Include="..\..\Shared\Bookstore.Api.Helper\Bookstore.Api.Helper.csproj" />
     <ProjectReference Include="..\..\Domain\Bookstore.Domain\Bookstore.Domain.csproj" />
   </ItemGroup>
 

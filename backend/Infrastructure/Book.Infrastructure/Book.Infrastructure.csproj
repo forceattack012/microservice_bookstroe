@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Bookstore.Api.Enum\Bookstore.Api.Enum.csproj" />
+    <ProjectReference Include="..\..\Shared\Bookstore.Api.Enum\Bookstore.Api.Enum.csproj" />
     <ProjectReference Include="..\..\Domain\Bookstore.Domain\Bookstore.Domain.csproj" />
   </ItemGroup>
 
