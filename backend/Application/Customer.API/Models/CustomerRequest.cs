@@ -1,8 +1,11 @@
-﻿using Bookstore.Domain.Entities.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Bookstore.Domain.Entities
+namespace Customer.API.Models
 {
-    public class Customer : Entity<long>, IUser
+    public class CustomerRequest
     {
         public string Username { get; set; }
         public string Password { get; set; }
@@ -14,6 +17,5 @@ namespace Bookstore.Domain.Entities
         public DateTime? ActiveDate { get; set; }
         public DateTime? CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public List<Order>? Orders { get; set; }
     }
 }
