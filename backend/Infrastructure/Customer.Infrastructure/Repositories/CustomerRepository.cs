@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Bookstore.Domain.Repositories;
 using Customer.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Customer.Infrastructure.Repositories
 {
@@ -24,13 +21,19 @@ namespace Customer.Infrastructure.Repositories
 
         public async Task DeleteCustomer(Bookstore.Domain.Entities.Customer customer)
         {
-            _context.Customers.Remove(customer);
+            _context.Entry(customer).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Bookstore.Domain.Entities.Customer?> GetCustomerById(int id)
+        public async Task<Bookstore.Domain.Entities.Customer> GetCustomerById(long id)
         {
             return await _context.Customers.FindAsync(id);
+        }
+
+        public async Task UpdateCustomer(Bookstore.Domain.Entities.Customer customer)
+        {
+            _context.Entry(customer).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

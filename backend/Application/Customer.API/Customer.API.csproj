@@ -10,6 +10,7 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -20,5 +21,6 @@
     <ProjectReference Include="..\..\Infrastructure\Customer.Infrastructure\Customer.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Bookstore.Api.Helper\Bookstore.Api.Helper.csproj" />
   </ItemGroup>
 </Project>

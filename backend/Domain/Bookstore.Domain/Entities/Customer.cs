@@ -14,6 +14,5 @@ namespace Bookstore.Domain.Entities
         public DateTime? ActiveDate { get; set; }
         public DateTime? CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public List<Order>? Orders { get; set; }
     }
 }
