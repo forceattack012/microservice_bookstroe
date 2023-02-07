@@ -11,7 +11,7 @@ namespace Bookstore.Domain.Entities
         {
             get
             {
-                int count = Books.Sum(r => r.Qty);
+                int count = Books?.Sum(r => r.Qty) ?? 0;
                 return count;
             }
         }
@@ -19,7 +19,7 @@ namespace Bookstore.Domain.Entities
         private decimal total { 
             get
             {
-                decimal _total = Books.Sum(r => r.Price * r.Qty);
+                decimal _total = Books?.Sum(r => r.Price * r.Qty) ?? 0;
                 return _total;
             } 
         }

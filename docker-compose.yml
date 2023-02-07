@@ -1,0 +1,70 @@
+services:
+  mongo-db:
+    container_name: book-mongo
+    restart: always
+    image: mongo
+    ports:
+      - 27017:27017
+
+  redis-db:
+    container_name: bookstore-redis
+    restart: always
+    image:  redis
+    ports:
+      - 6370:6379
+
+  pg-db:
+    container_name: bookstore-postgres
+    restart: always
+    image:  postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=bookstore
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=abcd1234
+
+  book-api:
+    container_name: book.api
+    restart: always
+    image: ${DOCKER_REGISTRY-}book.api
+    depends_on:
+      - mongo-db
+    build:
+      context: backend
+      dockerfile: dockerfile.book
+    ports:
+      - 8080:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "BookStoreDatabase:ConnectionString=mongodb://mongo-db:27017"
+
+  basket-api:
+    container_name: basket.api
+    restart: always
+    image: ${DOCKER_REGISTRY-}basket.api
+    depends_on:
+      - redis-db
+    build:
+      context: backend
+      dockerfile: dockerfile.basket
+    ports:
+      - 8081:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:Redis=redis-db:6379" #internal port's redis
+    
+  order-api:
+    container_name: order.api
+    restart: always
+    image: ${DOCKER_REGISTRY-}order.api
+    depends_on:
+      - pg-db
+    build:
+      context: backend
+      dockerfile: dockerfile.order
+    ports:
+      - 8082:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderContext=Host=pg-db;Database=bookstore;Username=admin;Password=abcd1234"
