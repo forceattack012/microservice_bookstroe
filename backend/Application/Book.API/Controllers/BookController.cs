@@ -12,10 +12,12 @@ namespace Book.Controllers
     public class BookController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly Bookstore.Domain.Repositories.ILogger _logger;
 
-        public BookController(IMediator mediator)
+        public BookController(IMediator mediator, Bookstore.Domain.Repositories.ILogger logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpGet]

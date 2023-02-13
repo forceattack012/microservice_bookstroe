@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -21,6 +21,8 @@
     <ProjectReference Include="..\..\Infrastructure\Customer.Infrastructure\Customer.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Logging.Infrastructure\Logging.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Middleware\Middleware.csproj" />
     <ProjectReference Include="..\..\Shared\Bookstore.Api.Helper\Bookstore.Api.Helper.csproj" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@ using Book.Settings;
 using Bookstore.Api.Enum.Book;
 using MediatR;
 using System.Reflection;
+using Logging.Infrastructure.Dependency;
+using Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,8 @@ var booksSettings = new BookStoreDatabaseSettings();
 builder.Configuration.GetSection(BookDbSettings.BOOK_STORE_SETTINGS).Bind(booksSettings);
 builder.Services.AddInfrastructure(booksSettings.ConnectionString, booksSettings.DatabaseName);
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddLoggingInfrastructure(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -32,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.Run();
 

@@ -19,6 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Bookstore.Domain\Bookstore.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Book.Infrastructure\Book.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Logging.Infrastructure\Logging.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Middleware\Middleware.csproj" />
   </ItemGroup>
 
   <ItemGroup>

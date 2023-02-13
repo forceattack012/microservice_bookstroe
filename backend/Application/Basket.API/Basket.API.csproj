@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Logging.Infrastructure\Logging.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Middleware\Middleware.csproj" />
     <ProjectReference Include="..\..\Shared\Bookstore.Api.Enum\Bookstore.Api.Enum.csproj" />
     <ProjectReference Include="..\..\Domain\Bookstore.Domain\Bookstore.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Basket.Infrastructure\Basket.Infrastructure.csproj" />

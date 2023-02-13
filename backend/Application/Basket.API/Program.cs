@@ -1,5 +1,7 @@
 using Basket.Infrastructure.Dependency;
+using Logging.Infrastructure.Dependency;
 using MediatR;
+using Middleware;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,7 @@ builder.Services.AddSwaggerGen();
 string connection = builder.Configuration.GetConnectionString("Redis");
 builder.Services.AddInfrastructure(connection);
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddLoggingInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -29,5 +32,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.Run();

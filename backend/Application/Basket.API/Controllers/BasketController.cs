@@ -12,10 +12,12 @@ namespace Basket.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly Bookstore.Domain.Repositories.ILogger _logger;
 
-        public BasketController(IMediator mediator)
+        public BasketController(IMediator mediator, Bookstore.Domain.Repositories.ILogger logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpGet("{userName}")]

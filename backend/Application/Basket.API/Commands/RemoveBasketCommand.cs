@@ -21,10 +21,12 @@ namespace Basket.Commands
     public class RemoveBasketHanlder : IRequestHandler<RemoveBasketCommand, Response<Bookstore.Domain.Entities.Basket>>
     {
         private readonly IBasketRepository _repository;
+        private readonly Bookstore.Domain.Repositories.ILogger _logger;
 
-        public RemoveBasketHanlder(IBasketRepository repository)
+        public RemoveBasketHanlder(IBasketRepository repository, Bookstore.Domain.Repositories.ILogger logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         public async Task<Response<Bookstore.Domain.Entities.Basket>> Handle(RemoveBasketCommand request, CancellationToken cancellationToken)
@@ -59,19 +61,27 @@ namespace Basket.Commands
                 };
             }
 
-            var indexBookRemoved = basket.Books.FindIndex(r => Convert.ToString(r.Id) == request.Id);
-            if (indexBookRemoved == -1)
+            try
             {
-                return new Response<Bookstore.Domain.Entities.Basket>()
+                var indexBookRemoved = basket.Books.FindIndex(r => Convert.ToString(r.Id) == request.Id);
+                if (indexBookRemoved == -1)
                 {
-                    StatusCode = 404,
-                    IsSuccess = false,
-                    Message = "id is not found"
-                };
-            }
+                    return new Response<Bookstore.Domain.Entities.Basket>()
+                    {
+                        StatusCode = 404,
+                        IsSuccess = false,
+                        Message = "id is not found"
+                    };
+                }
 
-            basket.Books.RemoveAt(indexBookRemoved);
-            await _repository.AddBasket(basket, cancellationToken);
+                basket.Books.RemoveAt(indexBookRemoved);
+                await _repository.AddBasket(basket, cancellationToken);
+            }
+            catch(Exception ex)
+            { 
+                _logger.LogDebug($"{basket} \n"+ ex.Message, ex);
+                throw;
+            }
 
             return new Response<Bookstore.Domain.Entities.Basket>()
             {
