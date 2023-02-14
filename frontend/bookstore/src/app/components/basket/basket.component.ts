@@ -8,7 +8,7 @@ import { BasketService } from 'src/services/basket.service';
   styleUrls: ['./basket.component.css']
 })
 export class BasketComponent implements OnInit {
-  baskets: Basket[] = []
+  baskets: Basket
 
   constructor(private basketService: BasketService) { 
   }
