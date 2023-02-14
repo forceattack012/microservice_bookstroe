@@ -82,6 +82,23 @@ services:
   #     - kong-database
   #     - kong-migrations
 
+  # konga:
+  #   image: pantsel/konga
+  #   ports:
+  #     - "1337:1337"
+  #   environment:
+  #     - DB_ADAPTER=postgres
+  #     - DB_HOST=kong-database
+  #     - DB_USER=kong
+  #     - DB_PASSWORD=abcd1234
+  #     - DB_DATABASE=postgres
+  #     - KONGA_HOOK_TIMEOUT=120000
+  #     - NODE_ENV=production
+  #   networks:
+  #     - bookstore-net
+  #   depends_on:
+  #     - kong-database
+
   elasticsearch:
     container_name: es-container
     image: docker.elastic.co/elasticsearch/elasticsearch:8.6.1

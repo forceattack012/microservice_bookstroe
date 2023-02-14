@@ -16,7 +16,7 @@ namespace Basket.Infrastructure.Repositories
 
         public async Task AddBasket(Bookstore.Domain.Entities.Basket basket, CancellationToken cancellationToken = default)
         {
-            await _redisContext.Database.StringSetAsync(basket.UsertName, JsonConvert.SerializeObject(basket));
+            await _redisContext.Database.StringSetAsync(basket.UsertName, JsonConvert.SerializeObject(basket), new TimeSpan(0, 0, 30));
             return;
         }
 

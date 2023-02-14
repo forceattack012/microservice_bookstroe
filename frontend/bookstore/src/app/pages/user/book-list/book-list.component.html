@@ -1,1 +1,15 @@
-<p>book-list works!</p>
+<main>
+    <div *ngIf="books" class="container">
+        <div class="grid-container my-10" *ngIf="this.books">
+            <div *ngFor="let book of books">
+                <div class="book">
+                    <div>{{book.id}}</div>
+                    <div>Name: {{book.name}}</div>
+                    <div>Price: {{book.price}}</div>
+                    <div>Qty: {{book.qty}}</div>
+                    <button class="my-2 btn btn-primary" (click)=this.addBasket(book)>Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

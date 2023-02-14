@@ -4,8 +4,10 @@ import { BookListComponent } from './pages/user/book-list/book-list.component';
 
 
 const routes: Routes = [
-  { path: 'books', component: BookListComponent  },
-  { path: '',   redirectTo: '/books', pathMatch: 'full' }
+  {
+    path: 'user',
+    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule)
+  }
 ];
 
 @NgModule({
